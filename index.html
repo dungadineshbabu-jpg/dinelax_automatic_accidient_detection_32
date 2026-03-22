@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Accident Detection System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-car-crash"></i> Automatic Accident Detection</h1>
+            <p class="subtitle">Real-time accident detection and emergency alert system</p>
+        </div>
+        
+        <!-- TOP PANEL: Accident Detection Output -->
+        <div class="panel top-panel">
+            <div class="panel-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Accident Detection Output</h2>
+            </div>
+            
+            <div class="system-info">
+                <p class="info-text">
+                    <i class="fas fa-info-circle"></i> This app runs automatically after installation. 
+                    Services are detected using sensors and location is sent to police and hospital.
+                </p>
+                
+                <div class="status-time-container">
+                    <div class="status-box">
+                        <div class="status-label">Status:</div>
+                        <div class="status-value serious" id="accident-status">
+                            Serious Accident Detected Automatically
+                        </div>
+                    </div>
+                    
+                    <div class="time-box">
+                        <div class="time-label">Time:</div>
+                        <div class="time-value" id="accident-time">2026-02-04 15:44:44</div>
+                    </div>
+                </div>
+                
+                <div class="hospital-type-box" id="hospital-type-box">
+                    <div class="hospital-type-label">Hospital Type:</div>
+                    <div class="hospital-type-value big-hospital" id="hospital-type">City General Hospital (Big Hospital)</div>
+                </div>
+                
+                <div class="alert-container">
+                    <div class="alert-box police">
+                        <div class="alert-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="alert-content">
+                            <div class="alert-label">Police:</div>
+                            <div class="alert-value" id="police-status">Police Station Notified (SMS)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert-box hospital">
+                        <div class="alert-icon">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <div class="alert-content">
+                            <div class="alert-label">Hospital:</div>
+                            <div class="alert-value" id="hospital-status">Hospital Notified (SMS)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-link">
+                    <a href="https://www.google.com/maps?q=18.4514022,83.6639364" id="google-maps-link" target="_blank" class="map-button">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="map-coordinates">https://www.google.com/maps?q=18.4514022,83.6639364</span>
+                    </a>
+                </div>
+                
+                <div class="simulation-controls">
+                    <h3><i class="fas fa-sliders-h"></i> Simulation Controls</h3>
+                    <div class="sim-buttons">
+                        <button class="sim-btn" id="simulate-minor" title="Will alert local clinic/small hospital">
+                            <i class="fas fa-clinic-medical"></i> Minor Accident
+                            <small class="hospital-hint">(Small Hospital)</small>
+                        </button>
+                        <button class="sim-btn" id="simulate-serious" title="Will alert city general hospital">
+                            <i class="fas fa-hospital-alt"></i> Serious Accident
+                            <small class="hospital-hint">(Big Hospital)</small>
+                        </button>
+                        <button class="sim-btn" id="simulate-critical" title="Will alert trauma center">
+                            <i class="fas fa-plus-square"></i> Critical Accident
+                            <small class="hospital-hint">(Trauma Center)</small>
+                        </button>
+                        <button class="sim-btn" id="simulate-random">
+                            <i class="fas fa-random"></i> Random Accident
+                            <small class="hospital-hint">(Any Hospital)</small>
+                        </button>
+                    </div>
+                    
+                    <div class="manual-control">
+                        <button class="btn-manual" id="trigger-manual">
+                            <i class="fas fa-bolt"></i> Trigger Manual Detection
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-hdd"></i> Google Drive
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-code"></i> TechSpirit
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-ghost"></i> DevHorror
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BOTTOM PANEL: Live Monitoring Panel with Auto Detection -->
+        <div class="panel bottom-panel">
+            <div class="panel-header">
+                <h2><i class="fas fa-heartbeat"></i> Live Monitoring Panel</h2>
+            </div>
+            
+            <div class="monitoring-content">
+                <div class="monitoring-status">
+                    <div class="monitoring-label">Status:</div>
+                    <div class="monitoring-value" id="monitoring-status">Serious Accident Detected</div>
+                </div>
+                
+                <div class="monitoring-alerts">
+                    <div class="monitoring-alert police-monitor">
+                        <i class="fas fa-shield-alt"></i>
+                        <span id="police-monitor">Police Notified (SMS)</span>
+                    </div>
+                    <div class="monitoring-alert hospital-monitor">
+                        <i class="fas fa-ambulance"></i>
+                        <span id="hospital-monitor">Hospital Notified (SMS)</span>
+                    </div>
+                </div>
+                
+                <!-- AUTO DETECTION SYSTEM SECTION -->
+                <div class="auto-detection-section">
+                    <div class="auto-header">
+                        <h3><i class="fas fa-robot"></i> Automatic Detection System</h3>
+                        <div class="auto-status-indicator">
+                            <span class="auto-label">Status:</span>
+                            <span class="auto-status active" id="auto-system-status">ACTIVE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="auto-controls-grid">
+                        <div class="auto-stats">
+                            <div class="auto-stat">
+                                <i class="fas fa-history"></i>
+                                <div>
+                                    <div class="stat-label">Last Auto Detection:</div>
+                                    <div class="stat-value" id="last-auto-detection">10:13:54 PM</div>
+                                </div>
+                            </div>
+                            <div class="auto-stat">
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <div class="stat-label">Auto Detections:</div>
+                                    <div class="stat-value" id="total-auto-detections">A29</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="auto-buttons">
+                            <button class="auto-btn start" id="start-auto-detection">
+                                <i class="fas fa-play-circle"></i>
+                                <span>Start Auto Detection</span>
+                            </button>
+                            <button class="auto-btn stop" id="stop-auto-detection">
+                                <i class="fas fa-stop-circle"></i>
+                                <span>Stop Auto Detection</span>
+                            </button>
+                            <button class="auto-btn test" id="test-auto-system">
+                                <i class="fas fa-vial"></i>
+                                <span>Test Auto System</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- AUTO SYSTEM CONTROL BUTTONS (ADDED) -->
+                    <div class="auto-system-controls" style="margin-top: 15px;">
+                        <h4 style="color: #00d4ff; margin-bottom: 10px; font-size: 1rem;">
+                            <i class="fas fa-cog"></i> Auto System Controls
+                        </h4>
+                        <div class="auto-controls-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                            <button id="refresh-auto-data" class="auto-btn" style="background: #3498db; padding: 12px;">
+                                <i class="fas fa-sync-alt"></i> Refresh Data
+                            </button>
+                            <button id="reset-auto-system" class="auto-btn" style="background: #e74c3c; padding: 12px;">
+                                <i class="fas fa-redo"></i> Reset System
+                            </button>
+                            <button id="view-auto-logs" class="auto-btn" style="background: #9b59b6; padding: 12px;">
+                                <i class="fas fa-file-alt"></i> View Logs
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="sensor-grid">
+                        <h4><i class="fas fa-microchip"></i> Simulated Sensors Status</h4>
+                        <div class="sensors-container">
+                            <div class="sensor-card">
+                                <div class="sensor-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <div class="sensor-info">
+                                    <h5>Accelerometer</h5>
+                                    <p class="sensor-status" id="accel-value">Detecting G-forces</p>
+                                </div>
+                            </div>
+                            
+                            <div class="sensor-card">
+                                <div class="sensor-icon">
+                                    <i class="fas fa-satellite"></i>
+                                </div>
+                                <div class="sensor-info">
+                                    <h5>GPS Module</h5>
+                                    <p class="sensor-status" id="gps-value">Tracking location</p>
+                                </div>
+                            </div>
+                            
+                            <div class="sensor-card">
+                                <div class="sensor-icon">
+                                    <i class="fas fa-volume-up"></i>
+                                </div>
+                                <div class="sensor-info">
+                                    <h5>Sound Sensor</h5>
+                                    <p class="sensor-status" id="sound-value">Monitoring impact sounds</p>
+                                </div>
+                            </div>
+                            
+                            <div class="sensor-card">
+                                <div class="sensor-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="sensor-info">
+                                    <h5>Camera AI</h5>
+                                    <p class="sensor-status" id="camera-value">Visual analysis</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END AUTO DETECTION SYSTEM SECTION -->
+                
+                <div class="monitoring-grid">
+                    <div class="monitoring-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Severity:</div>
+                            <div class="detail-value" id="severity-level">High</div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-label">Weather:</div>
+                            <div class="detail-value" id="weather-condition">Clear, 25°C</div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-label">Hospital Type:</div>
+                            <div class="detail-value big" id="hospital-type-detail">City General Hospital</div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-label">Location:</div>
+                            <div class="detail-value">
+                                <a href="https://www.google.com/maps?q=18.4514022,83.6639364" id="location-link" class="location-link" target="_blank">View on Map</a>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-label">Time:</div>
+                            <div class="detail-value" id="current-time">15:44:44</div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert-log">
+                        <h3><i class="fas fa-history"></i> Alert Log</h3>
+                        <div class="log-container" id="alert-log-container">
+                            <div class="log-entry">
+                                <span class="log-time">15:44:44</span>
+                                <span class="log-service">Police</span>
+                                <span class="log-message">Alert sent for serious accident</span>
+                            </div>
+                            <div class="log-entry">
+                                <span class="log-time">15:44:45</span>
+                                <span class="log-service">Hospital <span class="hospital-indicator big">BIG</span></span>
+                                <span class="log-message">City General Hospital emergency team dispatched</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="system-controls">
+                    <button class="control-btn" id="reset-system">
+                        <i class="fas fa-redo"></i> Reset System
+                    </button>
+                    <button class="control-btn" id="refresh-data">
+                        <i class="fas fa-sync-alt"></i> Refresh Data
+                    </button>
+                    <button class="control-btn" id="view-logs">
+                        <i class="fas fa-file-alt"></i> View All Logs
+                    </button>
+                </div>
+                
+                <div class="detection-indicator">
+                    <div class="detection-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <div class="detection-text">Real-time Detection Active</div>
+                </div>
+                
+                <div class="signature">
+                    <p>Automatic Accident Detection System v2.1</p>
+                    <p class="signature-small">Powered by Sensor Fusion & AI Algorithms | Ready for Android Integration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-bell"></i>
+            <span id="toast-message">New accident detected!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿[
+    {
+        "id": "SMS-6988a6a4cbe9a",
+        "alert_id": "ALERT-6988a6a4c978a",
+        "accident_id": "ACC-20260208-160716-6988a6a4bc0af",
+        "recipient": "police",
+        "message": "🚨 ACCIDENT ALERT\nSeverity: MINOR\nTime: 2026-02-08 20:37:16\nLocation: Industrial Area, Zone 3\nCoordinates: 18.4468833,83.6608487\nMap: https://www.google.com/maps?q=18.4468833%2C83.6608487\nWeather: Cloudy, 28°C\nRespond immediately.",
+        "status": "delivered",
+        "sent_at": "2026-02-08 16:07:16",
+        "simulated": true
+    }
+]
